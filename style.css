@@ -41,6 +41,16 @@ html{
     box-sizing: border-box;
 }
 
+.access-hidden{
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
 .main{
     margin: 4rem 0;
 }
@@ -104,23 +114,7 @@ img {
     }
 }
 
-.side-wrap {
-    background-color: var(--white);
-    border-radius: 10px;
-    padding: 1rem;
-}
 
-.side-wrap svg{
-    
-    margin: 0 auto;
-    display: block;
-}
-
-
-.side-wrap p {
-    text-align: center;
-    color: var(--rose500);
-}
 
 .grid-wrap {
     display: flex;
@@ -210,5 +204,90 @@ img {
 .item-price{
     color: var(--red);
     font-weight: 600;
+}
+
+.side-wrap {
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.side-wrap p {
+    color: var(--rose500);
+}
+
+.empty-cart {
+    display: none;
+    margin: 0 auto;
+    text-align: center;
+
+    &.active {
+        display: block;
+    }
+}
+
+.full-cart {
+    display: block;
+
+    &.active {
+        display: none;
+    }
+}
+
+.cart-heading{
+    color: var(--rose500);
+    font-weight: 600;
+}
+
+.quantity{
+    color: var(--red);
+    font-weight: 600;
+}
+
+.each-item{
+    color: var(--rose400);
+}
+
+.item-total{
+    color: var(--rose500);
+}
+
+.remove-item{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    border: 2px solid #caafa7;
+    border-radius: 50%;
+    appearance: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 300ms
+    ease-in-out;
+    
+}
+
+.remove-item svg {
+    display: block;
+    width: 15px;
+    height: 15px;
+    fill: #caafa7;
+    transition: all 300ms
+    ease-in-out;
+}
+
+.remove-item:hover,
+.remove-item:active,
+.remove-item:focus {
+    border-color: var(--rose900);
+}
+
+.remove-item:hover svg,
+.remove-item:active svg,
+.remove-item:focus svg{
+    fill: var(--rose900);
 }
 
