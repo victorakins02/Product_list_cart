@@ -170,11 +170,11 @@ img {
 
 }
 .cart-button{
+    display: none;
     appearance: none;
     border: 1px solid var(--rose900);
     border-radius: 50vh;
-    padding: 0.65rem 1.2rem;
-    display:flex;
+    padding: 0.65rem 1.25rem;
     flex-flow: row nowrap;
     min-width: 150px;
     justify-content: space-evenly;
@@ -187,6 +187,7 @@ img {
     color: var(--rose900);
     cursor: pointer;
     transition: all 300ms ease-in-out;
+    z-index: 1;
 
     &:hover,
     &:active,
@@ -194,6 +195,10 @@ img {
         border-color: var(--red);
         color: var(--red);
     }
+}
+
+.cart-button.active {
+    display: flex;
 }
 
 .item-category{
@@ -205,6 +210,57 @@ img {
     color: var(--red);
     font-weight: 600;
 }
+
+.cart-plus-minus {
+    display: none;
+    appearance: none;
+    border: 1px solid var(--red);
+    background-color: var(--red);
+    color: var(--white);
+    border-radius: 50vh;
+    padding: 0.65rem 1rem;
+    min-width: 150px;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    height: 43px;
+    position: absolute;
+    bottom: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+.cart-plus-minus.active {
+    display: flex;
+}
+
+.more-less {
+    appearance: none;
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--white);
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+
+.more-less svg {
+    display: block;
+    fill: var(--white);
+    width: 10px;
+    height: 10px;
+}
+
+
 
 .side-wrap {
     background-color: var(--white);
