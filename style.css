@@ -434,3 +434,7 @@ strong{
     background-color: var(--white);
     color: var(--red);
 }
+
+.copyright {
+    text-align: center;
+}
