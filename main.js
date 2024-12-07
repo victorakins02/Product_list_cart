@@ -27,22 +27,50 @@ async function loadJson(filepath) {
 
 function toggleButton() {
     const gridwrap = document.querySelector(".grid-wrap");
-    gridwrap.addEventListener("click", (e) => {
-        if (e.target.classList.contains("cart-button")) {
-            const cartButton = e.target;
+
+    gridwrap.addEventListener("click", (e) =>{
+        const cartButton = e.target.closest(".cart-button");
+
+        if(cartButton) {
             const cartPlusMinus = cartButton.nextElementSibling;
 
-            if (cartPlusMinus && cartPlusMinus.classList.contains("cart-plus-minus")) {
-                if (cartButton.classList.contains("active")) {
+            if(cartPlusMinus) {
+                if(cartButton.classList.contains("active")){
                     cartButton.classList.remove("active");
                     cartPlusMinus.classList.add("active");
-                } else {
-                    cartButton.classList.add("active");
-                    cartPlusMinus.classList.remove("active");
+
+                    const gridItem = cartButton.closest(".grid-item");
+                    addToCart(gridItem);
                 }
             }
         }
     });
+}
+
+function addToCart(gridItem){
+    const itemName = gridItem.querySelector('.tertiary-header').innerText;
+    const itemPrice= gridItem.querySelector('.item-price').innerText;
+
+    const cartItem = document.createElement('article');
+    cartItem.classList.add('cart-item');
+    cartItem.innerHTML = `
+            <div class="cart-quantity">
+                <p class="cart-heading">${itemName}</p>
+                <div class="quantity-wrap">
+                    <span class="quantity">1x</span>
+                    <span class="each-item">@${itemPrice}</span>
+                    <span class="item-total">${itemPrice}</span>
+                </div>
+            </div>
+            <button class="remove-item">
+                <span class="access-hidden"></span>
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="none" viewBox="0 0 10 10"><path fill="" d="M8.375 9.375 5 6 1.625 9.375l-1-1L4 5 .625 1.625l1-1L5 4 8.375.625l1 1L6 5l3.375 3.375-1 1Z"/></svg>
+            </button>
+    `;
+
+    const cartSidebar = document.querySelector('.side-wrap');
+    cartSidebar.appendChild(cartItem)
+ 
 }
 
 
