@@ -276,22 +276,19 @@ img {
     color: var(--rose500);
 }
 
-.empty-cart {
-    display: none;
-    margin: 0 auto;
-    text-align: center;
-
-    &.active {
-        display: block;
-    }
-}
 
 .full-cart {
     display: block;
+}
 
-    &.active {
-        display: none;
-    }
+.empty-cart {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.full-cart + .empty-cart {
+    display: none;
 }
 
 .cart-heading{
