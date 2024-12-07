@@ -197,6 +197,10 @@ img {
     }
 }
 
+.cart-button svg {
+    pointer-events: none;
+}
+
 .cart-button.active {
     display: flex;
 }
