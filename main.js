@@ -88,29 +88,29 @@ function addToCart(gridItem){
     const itemTotalSpan = cartItem.querySelector(".item-total")
     removeButton.addEventListener("click", () => {
         cartSidebar.removeChild(cartItem);
-
         if (dataGridItem == dataCartItem){
             cartPlusMinus.classList.remove('active');
             cartButton.classList.add('active');
+            gridItemQuantity.innerHTML = 1;
         }
     })
 
     const incrementButton = gridItem.querySelector(".increment");
     const decrementButton = gridItem.querySelector(".decrement");
-    const itemquantity = gridItem.querySelector(".item-quantity");
+    const gridItemQuantity = gridItem.querySelector(".item-quantity");
 
     incrementButton.addEventListener("click", () => {
         currentQuantity ++;
         itemQuantitySpan.innerText = `${currentQuantity}`;
         itemTotalSpan.innerText = `$${(itemPrice * currentQuantity).toFixed(2)}`;
-        itemquantity.innerText = `${currentQuantity}`;
+        gridItemQuantity.innerText = `${currentQuantity}`;
     })
     decrementButton.addEventListener("click", () => {
         if (currentQuantity > 1) {
             currentQuantity --;
             itemQuantitySpan.innerText = `${currentQuantity}`;
             itemTotalSpan.innerText = `$${(itemPrice * currentQuantity).toFixed(2)}`;
-            itemquantity.innerText = `${currentQuantity}`;
+            gridItemQuantity.innerText = `${currentQuantity}`;
         }
     })
 }
