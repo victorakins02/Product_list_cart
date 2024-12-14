@@ -49,7 +49,8 @@ function toggleButton() {
 
 function addToCart(gridItem){
     const itemName = gridItem.querySelector('.tertiary-header').innerText;
-    const itemPrice= gridItem.querySelector('.item-price').innerText;
+    const itemPrice = parseFloat(gridItem.querySelector('.item-price').innerText.replace("$", ""));
+    let currentQuantity = 1;
 
     const cartItem = document.createElement('article');
     cartItem.classList.add('cart-item');
@@ -57,9 +58,9 @@ function addToCart(gridItem){
             <div class="cart-quantity">
                 <p class="cart-heading">${itemName}</p>
                 <div class="quantity-wrap">
-                    <span class="quantity">1x</span>
-                    <span class="each-item">@${itemPrice}</span>
-                    <span class="item-total">${itemPrice}</span>
+                    <span class="quantity">${currentQuantity}</span>
+                    <span class="each-item">@${itemPrice.toFixed(2)}</span>
+                    <span class="item-total">${itemPrice.toFixed(2)}</span>
                 </div>
             </div>
             <button class="remove-item">
@@ -69,8 +70,36 @@ function addToCart(gridItem){
     `;
 
     const cartSidebar = document.querySelector('.side-wrap');
-    cartSidebar.appendChild(cartItem)
- 
+    if (cartSidebar) {
+        console.log("cart item");
+        cartSidebar.appendChild(cartItem);
+    }
+
+    const removeButton = cartItem.querySelector(".remove-item");
+    const itemQuantitySpan = cartItem.querySelector(".quantity");
+    const itemTotalSpan = cartItem.querySelector(".item-total")
+    removeButton.addEventListener("click", () => {
+        cartSidebar.removeChild(cartItem);
+    })
+
+    const incrementButton = gridItem.querySelector(".increment");
+    const decrementButton = gridItem.querySelector(".decrement");
+    const itemquantity = gridItem.querySelector(".item-quantity");
+
+    incrementButton.addEventListener("click", () => {
+        currentQuantity ++;
+        itemQuantitySpan.innerText = `${currentQuantity}`;
+        itemTotalSpan.innerText = `$${(itemPrice * currentQuantity).toFixed(2)}`;
+        itemquantity.innerText = `${currentQuantity}`;
+    })
+    decrementButton.addEventListener("click", () => {
+        if (currentQuantity > 1) {
+            currentQuantity --;
+            itemQuantitySpan.innerText = `${currentQuantity}`;
+            itemTotalSpan.innerText = `$${(itemPrice * currentQuantity).toFixed(2)}`;
+            itemquantity.innerText = `${currentQuantity}`;
+        }
+    })
 }
 
 
@@ -94,11 +123,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         </button>
                         <div class="cart-plus-minus">
                             <span class="access-hidden">Cart Quantity</span>
-                            <button class="more-less">
+                            <button class="decrement">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="2" fill="" viewBox="0 0 10 2"><path fill="" d="M0 .375h10v1.25H0V.375Z"/></svg>
                             </button>
                             <span class="item-quantity">1</span>
-                            <button class="more-less">
+                            <button class="increment">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="" viewBox="0 0 10 10"><path fill="" d="M10 4.375H5.625V0h-1.25v4.375H0v1.25h4.375V10h1.25V5.625H10v-1.25Z"/></svg>
                             </button>
                         </div>
