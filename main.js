@@ -54,13 +54,14 @@ function addToCart(gridItem){
 
     const cartItem = document.createElement('article');
     cartItem.classList.add('cart-item');
+    cartItem.setAttribute('data-label', `${itemName}`)
     cartItem.innerHTML = `
             <div class="cart-quantity">
                 <p class="cart-heading">${itemName}</p>
                 <div class="quantity-wrap">
-                    <span class="quantity">${currentQuantity}</span>
+                    <span class="quantity">${currentQuantity}x</span>
                     <span class="each-item">@${itemPrice.toFixed(2)}</span>
-                    <span class="item-total">${itemPrice.toFixed(2)}</span>
+                    <span class="item-total">$${itemPrice.toFixed(2)}</span>
                 </div>
             </div>
             <button class="remove-item">
@@ -75,11 +76,23 @@ function addToCart(gridItem){
         cartSidebar.appendChild(cartItem);
     }
 
+    const cartButton = gridItem.querySelector(".cart-button");
+    const cartPlusMinus = gridItem.querySelector(".cart-plus-minus");
+
+    const dataGridItem = gridItem.getAttribute(`${itemName}`)
+    const dataCartItem = cartItem.getAttribute(`${itemName}`)
+
+
     const removeButton = cartItem.querySelector(".remove-item");
     const itemQuantitySpan = cartItem.querySelector(".quantity");
     const itemTotalSpan = cartItem.querySelector(".item-total")
     removeButton.addEventListener("click", () => {
         cartSidebar.removeChild(cartItem);
+
+        if (dataGridItem == dataCartItem){
+            cartPlusMinus.classList.remove('active');
+            cartButton.classList.add('active');
+        }
     })
 
     const incrementButton = gridItem.querySelector(".increment");
@@ -111,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
             data.forEach((item) => {
                 const article = document.createElement('article');
                 article.classList.add('grid-item');
-
+                article.setAttribute('data-label', `${item.name}`)
                 article.innerHTML = `
                     <div class="button-container">
                         <figure class="image-container">
