@@ -70,7 +70,7 @@ function addToCart(gridItem){
             </button>
     `;
 
-    const cartSidebar = document.querySelector('.side-wrap');
+    const cartSidebar = document.querySelector('.cart-container');
     if (cartSidebar) {
         console.log("cart item");
         cartSidebar.appendChild(cartItem);
