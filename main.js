@@ -122,15 +122,26 @@ function addToCart(gridItem){
 function updateCartItemCount() {
     const cartItems = document.querySelectorAll(".cart-item");
     const cartCountElement = document.querySelector(".cart-count");
+    const cartTotalAmount = document.querySelector(".total-amount")
     let totalQuantity = 0;
+    let totalAmount = 0;
 
     cartItems.forEach((item) => {
         const quantityText = item.querySelector(".quantity").innerText;
         const quantity = parseInt(quantityText);
         totalQuantity += quantity;
+
+        const totalAmtText = item.querySelector('.item-total').innerText.replace("$","");
+        const total = parseFloat(totalAmtText);
+        totalAmount += total;
     });
+
     if (cartCountElement) {
-        cartCountElement.innerText = totalQuantity;
+        cartCountElement.innerText = `Your Cart (${totalQuantity})`;
+    }
+
+    if (cartTotalAmount){
+        cartTotalAmount.innerHTML = `$${totalAmount.toFixed(2)}`;
     }
 }
 
