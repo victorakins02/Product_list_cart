@@ -81,6 +81,7 @@ function addToCart(gridItem){
 
     const dataGridItem = gridItem.getAttribute(`${itemName}`)
     const dataCartItem = cartItem.getAttribute(`${itemName}`)
+    updateCartItemCount();
 
 
     const removeButton = cartItem.querySelector(".remove-item");
@@ -88,6 +89,7 @@ function addToCart(gridItem){
     const itemTotalSpan = cartItem.querySelector(".item-total")
     removeButton.addEventListener("click", () => {
         cartSidebar.removeChild(cartItem);
+        updateCartItemCount();
         if (dataGridItem == dataCartItem){
             cartPlusMinus.classList.remove('active');
             cartButton.classList.add('active');
@@ -101,9 +103,10 @@ function addToCart(gridItem){
 
     incrementButton.addEventListener("click", () => {
         currentQuantity ++;
-        itemQuantitySpan.innerText = `${currentQuantity}`;
+        itemQuantitySpan.innerText = `${currentQuantity}x`;
         itemTotalSpan.innerText = `$${(itemPrice * currentQuantity).toFixed(2)}`;
         gridItemQuantity.innerText = `${currentQuantity}`;
+        updateCartItemCount();
     })
     decrementButton.addEventListener("click", () => {
         if (currentQuantity > 1) {
@@ -111,13 +114,30 @@ function addToCart(gridItem){
             itemQuantitySpan.innerText = `${currentQuantity}`;
             itemTotalSpan.innerText = `$${(itemPrice * currentQuantity).toFixed(2)}`;
             gridItemQuantity.innerText = `${currentQuantity}`;
+            updateCartItemCount();
         }
-    })
+    });
+}
+
+function updateCartItemCount() {
+    const cartItems = document.querySelectorAll(".cart-item");
+    const cartCountElement = document.querySelector(".cart-count");
+    let totalQuantity = 0;
+
+    cartItems.forEach((item) => {
+        const quantityText = item.querySelector(".quantity").innerText;
+        const quantity = parseInt(quantityText);
+        totalQuantity += quantity;
+    });
+    if (cartCountElement) {
+        cartCountElement.innerText = totalQuantity;
+    }
 }
 
 
 document.addEventListener('DOMContentLoaded', () => {
     copyright();
+
     loadJson('json/data.json')
         .then(data => {
             const gridwrap = document.querySelector('.grid-wrap');
@@ -151,7 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
                 gridwrap.appendChild(article);
             });
-            toggleButton();  
+            toggleButton(); 
+            updateCartItemCount(); 
         })
         .catch(error => {
             console.error('Error loading JSON data: ', error);
