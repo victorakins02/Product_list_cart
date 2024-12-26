@@ -147,7 +147,14 @@ img {
     height: 0;
     padding-bottom: 100%;
     width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 0 2px transparent;
     
+}
+
+.image-container:has(~ .cart-plus-minus.active){
+    box-shadow: 0 0 0 2px var(--red);
 }
 
 @media (max-width: 600px){
@@ -185,15 +192,50 @@ img {
     left: 50%;
     transform: translateX(-50%);
     color: var(--rose900);
-    cursor: pointer;
-    transition: all 300ms ease-in-out;
     z-index: 1;
+
 
     &:hover,
     &:active,
     &:focus{
         border-color: var(--red);
         color: var(--red);
+    }
+}
+
+.more-less {
+    appearance: none;
+    border: none;
+    background: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    width: 10px;
+    height: 10px;
+    border: 1px solid var(--white);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 300ms ease-in-out;
+}
+
+.more-less svg{
+    display: block;
+    width: 10px;
+    height: 10px;
+    fill: var(--white);
+    transition: all 300ms ease-in-out;
+}
+
+.more-less:hover,
+.more-less:active,
+.more-less:focus {
+    background-color: var(--white);
+
+    & svg{
+        fill: var(--red);
     }
 }
 
@@ -204,6 +246,8 @@ img {
 .cart-button.active {
     display: flex;
 }
+
+
 
 .item-category{
     font-size: 0.9rem;
@@ -232,6 +276,7 @@ img {
     bottom: -1rem;
     left: 50%;
     transform: translateX(-50%);
+    transition: all 300ms ease-in-out;
     z-index: 2;
 }
 
@@ -301,18 +346,23 @@ img {
     color: var(--rose500);
 }
 
-
+/*full cart is hidden on page load because the cart is empty*/
 .full-cart {
+    display: none;
+}
+/*full cart is dispplayed when the cart is active and has items*/
+.full-cart:has(.cart-container > .cart-item) {
     display: block;
 }
-
+/*empty cart is displayed on page load because the cart is acrive*/
 .empty-cart {
     display: block;
     margin: 0 auto;
     text-align: center;
 }
 
-.full-cart + .empty-cart {
+/*when the cart is full and active, the empty cart is not displayed*/
+.full-cart:has(.cart-container > .cart-item) + .empty-cart {
     display: none;
 }
 
